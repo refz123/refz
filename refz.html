@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>PAPAREFZ.PAY • Kerajaan Nusantara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cinzel', serif;
+            min-height: 100vh;
+            background: radial-gradient(circle at 30% 10%, #1a0f0a 0%, #0a0505 50%, #1a0a05 100%);
+            position: relative;
+            overflow-x: hidden;
+            padding: 1.5rem;
+        }
+
+        /* Latar belakang efek emas berkilau */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 20% 40%, rgba(255,215,0,0.08) 2px, transparent 2px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Efek cahaya emas dari atas */
+        .golden-light {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.15), transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 540px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* CARD KERAJAAN */
+        .royal-card {
+            background: linear-gradient(145deg, rgba(30, 15, 20, 0.75), rgba(15, 5, 10, 0.85));
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.8), 0 0 0 1px rgba(212, 175, 55, 0.3), 0 0 30px rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .royal-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #d4af37, #8b6914, #d4af37);
+            border-radius: 50px;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .royal-card:hover {
+            transform: translateY(-5px);
+            border-color: #d4af37;
+            box-shadow: 0 30px 50px -15px black, 0 0 0 2px rgba(212, 175, 55, 0.5), 0 0 40px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Header Kerajaan */
+        .royal-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .royal-header h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #F9E281, #D4AF37, #AA7700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(212,175,55,0.5);
+            letter-spacing: 2px;
+        }
+
+        .royal-header .domain {
+            font-size: 0.85rem;
+            color: #d4af37;
+            letter-spacing: 3px;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        .crown-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(139,105,20,0.3));
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            color: #d4af37;
+            border: 1px solid rgba(212,175,55,0.6);
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        /* QRIS Area */
+        .qris-royal {
+            text-align: center;
+        }
+
+        .qris-crown-border {
+            background: linear-gradient(135deg, #d4af37, #8b6914);
+            padding: 3px;
+            border-radius: 55px;
+            display: inline-block;
+        }
+
+        .qris-frame-royal {
+            background: linear-gradient(145deg, #fff8e7, #f5e6c8);
+            border-radius: 52px;
+            padding: 14px;
+        }
+
+        .qris-img {
+            width: 210px;
+            height: 210px;
+            object-fit: contain;
+            border-radius: 40px;
+        }
+
+        /* Tombol Emas */
+        .btn-royal {
+            background: linear-gradient(135deg, #d4af37, #b8860b, #8b6914);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #1a0a05;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: 'Cinzel', serif;
+            transition: 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        .btn-royal:active {
+            transform: scale(0.97);
+        }
+
+        /* DANA TERSEMBUNYI versi kerajaan */
+        .dana-royal-hidden {
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 80px;
+            padding: 18px 20px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px dashed #d4af37;
+            transition: 0.2s;
+        }
+
+        .dana-royal-hidden:active {
+            background: rgba(212, 175, 55, 0.25);
+        }
+
+        .dana-placeholder-royal {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #d4af37;
+        }
+
+        .dana-reveal-royal {
+            font-size: 1.4rem;
+            font-weight: 800;
+            font-family: monospace;
+            color: #F9E281;
+            margin-top: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn-copy-royal {
+            background: #8b6914;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 50px;
+            color: #fff0cc;
+            font-weight: bold;
+            margin-top: 14px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Chat Admin Kerajaan */
+        .chat-royal {
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 60px;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+            border: 0.5px solid #d4af37;
+        }
+
+        .btn-chat-royal {
+            background: #25D366;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Notifikasi */
+        .notif-royal {
+            background: linear-gradient(145deg, rgba(30, 15, 20, 0.95), rgba(15, 5, 10, 0.95));
+            backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 22px;
+            text-align: center;
+            border: 2px solid #d4af37;
+            margin-top: 16px;
+        }
+
+        .btn-wa-royal {
+            background: #25D366;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 14px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.6rem;
+            opacity: 0.5;
+            margin-top: 30px;
+            color: #d4af37;
+        }
+    </style>
+</head>
+<body>
+
+<div class="golden-light"></div>
+
+<div class="container">
+    <div class="royal-header">
+        <h1>⚜️ PAPAREFZ.PAY ⚜️</h1>
+        <div class="domain">REFZ.PAYMENT</div>
+        <div class="crown-badge">👑 KERAJAAN NUSANTARA 👑</div>
+    </div>
+
+    <!-- QRIS CARD -->
+    <div class="royal-card">
+        <div style="text-align: center; font-weight: 600; margin-bottom: 12px; color: #d4af37;">📜 SCAN QRIS DANA 📜</div>
+        <div class="qris-royal">
+            <div class="qris-crown-border">
+                <div class="qris-frame-royal">
+                    <img src="refz123.jpg" alt="QRIS" class="qris-img" id="qrisImage" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%231a0a05%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23d4af37%22%3EQRIS%3C/text%3E%3C/svg%3E'">
+                </div>
+            </div>
+            <button class="btn-royal" id="downloadBtn">⬇️ UNDUH QRIS KERAJAAN ⬇️</button>
+        </div>
+    </div>
+
+    <!-- DANA TERSEMBUNYI -->
+    <div class="royal-card">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+            <span>👑</span> <span style="font-weight: 700; color: #d4af37;">DANA KERAJAAN</span>
+        </div>
+        <div class="dana-royal-hidden" id="danaHiddenBox">
+            <div class="dana-placeholder-royal" id="danaPlaceholder">
+                🔒 KETUK UNTUK LIHAT NOMOR DANA 🔒
+            </div>
+            <div id="danaRevealArea" class="hidden">
+                <div class="dana-reveal-royal" id="nomorDana">0859 5484 1916</div>
+                <button class="btn-copy-royal" id="copyDanaBtn">📋 SALIN NOMOR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAT ADMIN -->
+    <div class="royal-card">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+            <span>💬</span> <span style="font-weight: 700; color: #d4af37;">ADMIN REFZ</span>
+        </div>
+        <div class="chat-royal">
+            <span>📞 Butuh bantuan? Chat Abdi Kerajaan</span>
+            <button class="btn-chat-royal" id="chatAdminBtn">
+                💬 CHAT SEKARANG
+            </button>
+        </div>
+    </div>
+
+    <div id="alertArea"></div>
+    <footer>© 2025 PAPAREFZ.PAY • Refawayuda • Kerajaan Nusantara</footer>
+</div>
+
+<script>
+    const NOMOR_DANA = "085954841916";
+    const NOMOR_ADMIN = "085954841942";
+    const QRIS_FILE = "refz123.jpg";
+
+    function showNotif() {
+        const area = document.getElementById("alertArea");
+        area.classList.remove("hidden");
+        area.innerHTML = `
+            <div class="notif-royal">
+                <span style="font-size: 2rem;">👑✨</span>
+                <h3 style="color: #d4af37; margin: 8px 0;">BERHASIL!</h3>
+                <p><strong>WAJIB KIRIM BUKTI TF KE ADMIN REFZ</strong></p>
+                <button id="waNotifBtn" class="btn-wa-royal">💬 HUBUNGI ADMIN VIA WA</button>
+            </div>
+        `;
+        const waBtn = document.getElementById("waNotifBtn");
+        if (waBtn) {
+            waBtn.addEventListener("click", () => {
+                window.open(`https://wa.me/${NOMOR_ADMIN}?text=Halo%20Admin%20Refz,%20saya%20sudah%20transfer.%20Berikut%20bukti%20pembayaran.`, "_blank");
+            });
+        }
+        area.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    // Download QRIS
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.href = QRIS_FILE;
+        link.download = "qris_refpayment.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showNotif();
+    });
+
+    // DANA TERSEMBUNYI
+    let isRevealed = false;
+    document.getElementById("danaHiddenBox").addEventListener("click", () => {
+        if (!isRevealed) {
+            isRevealed = true;
+            document.getElementById("danaPlaceholder").classList.add("hidden");
+            document.getElementById("danaRevealArea").classList.remove("hidden");
+        }
+    });
+
+    // Copy nomor DANA
+    document.getElementById("copyDanaBtn").addEventListener("click", async () => {
+        await navigator.clipboard.writeText(NOMOR_DANA);
+        showNotif();
+    });
+
+    // Chat Admin
+    document.getElementById("chatAdminBtn").addEventListener("click", () => {
+        window.open(`https://wa.me/${NOMOR_ADMIN}?text=Halo%20Admin%20Refz,%20saya%20mau%20bertanya%20soal%20pembayaran.`, "_blank");
+    });
+</script>
+</body>
+</html>
